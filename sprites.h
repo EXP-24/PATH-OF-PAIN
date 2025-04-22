@@ -37,11 +37,4 @@ const int JUMP_CLIPS[][4]={
     {256,256,128,128},
 };
 const int JUMP_FRAMES = sizeof(JUMP_CLIPS)/sizeof(int)/4;
-
-const char* FIGHT_SPRITE_FILE = "include/texture/f-melee.png";
-const int FIGHT_CLIPS[][4]= {
-    {0,0,128,128},
-    {128,0,128,128},
-};
-const int FIGHT_FRAMES = sizeof(FIGHT_CLIPS)/sizeof(int)/4;
 #endif
