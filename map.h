@@ -4,7 +4,6 @@
 #include "graphics.h"
 #include <SDL_image.h>
 #include "defs.h"
-#include <vector>
 #include <SDL.h>
 #include <string>
 struct Map {
