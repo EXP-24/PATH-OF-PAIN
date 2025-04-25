@@ -1,3 +1,4 @@
+# Path of Pain
 - Các thư viện SDL đã sử dụng: SDL_image.h, SDL_mixer.h, SDL_ttf.h.
 - Code tham khảo:
     + Toàn bộ file graphics.h: https://github.com/chauttm/gameProject
