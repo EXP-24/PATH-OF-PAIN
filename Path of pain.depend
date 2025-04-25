@@ -1,27 +1,30 @@
 # depslib dependency file v1.0
-1745153831 source:f:\path of pain\path of pain\main.cpp
+1745569082 source:f:\path of pain\path of pain\main.cpp
 	<iostream>
 	<SDL.h>
 	<SDL_image.h>
 	<SDL_mixer.h>
+	<SDL_ttf.h>
 	"graphics.h"
 	"sprites.h"
 	"defs.h"
 	"game.h"
 	"map.h"
+	"menu.h"
 
-1745251780 f:\path of pain\path of pain\graphics.h
+1745592143 f:\path of pain\path of pain\graphics.h
 	<SDL.h>
 	<SDL_image.h>
 	<SDL_mixer.h>
+	<SDL_ttf.h>
 	"defs.h"
 	<vector>
 
-1745165563 f:\path of pain\path of pain\defs.h
+1745589928 f:\path of pain\path of pain\defs.h
 
-1745163718 f:\path of pain\path of pain\sprites.h
+1745592143 f:\path of pain\path of pain\sprites.h
 
-1745333635 f:\path of pain\path of pain\game.h
+1745590782 f:\path of pain\path of pain\game.h
 	<SDL.h>
 	<SDL_image.h>
 	"map.h"
@@ -29,7 +32,6 @@
 	"SDL_mixer.h"
 	"sprites.h"
 	"graphics.h"
-	<vector>
 
 1742136396 source:f:\path of pain\path of pain\src\map\tilelayer.cpp
 	"TileLayer.h"
@@ -41,12 +43,18 @@
 
 1742133155 f:\path of pain\path of pain\src\map\layer.h
 
-1744873543 f:\path of pain\path of pain\map.h
+1745590605 f:\path of pain\path of pain\map.h
 	<fstream>
 	"graphics.h"
 	<SDL_image.h>
 	"defs.h"
-	<vector>
 	<SDL.h>
 	<string>
+
+1745589928 f:\path of pain\path of pain\menu.h
+	<SDL_ttf.h>
+	<SDL_image.h>
+	<SDL_mixer.h>
+	"defs.h"
+	"graphics.h"
 
