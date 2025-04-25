@@ -1,10 +1,10 @@
-#ifndef MAP_H
-#define MAP_H
+#ifndef _MAP__H
+#define _MAP__H
+
 #include <fstream>
 #include "graphics.h"
 #include <SDL_image.h>
 #include "defs.h"
-#include <vector>
 #include <SDL.h>
 #include <string>
 struct Map {
@@ -15,17 +15,26 @@ struct Map {
     SDL_Texture* tile9;
     SDL_Texture* tile10;
     SDL_Texture* tile11;
-    SDL_Texture* tile12;
+    SDL_Texture* tile5;
     SDL_Texture* tile13;
-    SDL_Texture* tile15;
+    SDL_Texture* tile27;
     SDL_Texture* tile16;
     SDL_Texture* tile18;
     SDL_Texture* tile19;
     SDL_Texture* tile20;
     SDL_Texture* tile21;
     SDL_Texture* tile22;
-    SDL_Texture* tile55;
-    SDL_Texture* tile56;
+    SDL_Texture* tile28;
+    SDL_Texture* tile29;
+    SDL_Texture* tile37;
+    SDL_Texture* tile38;
+    SDL_Texture* tile43;
+    SDL_Texture* tile44;
+    SDL_Texture* background1;
+    SDL_Texture* background2;
+    SDL_Texture* background3;
+    SDL_Texture* background4;
+    SDL_Texture* background5;
     SDL_Rect camera = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
 
     void init(Graphics& graphics){
@@ -33,22 +42,33 @@ struct Map {
         tile2 = graphics.loadTexture("include/maps/Tile_02.png");
         tile3 = graphics.loadTexture("include/maps/Tile_03.png");
         tile4 = graphics.loadTexture("include/maps/Tile_04.png");
+        tile5 = graphics.loadTexture("include/maps/Tile_05.png");
         tile9 = graphics.loadTexture("include/maps/Tile_09.png");
         tile10 = graphics.loadTexture("include/maps/Tile_10.png");
         tile11 = graphics.loadTexture("include/maps/Tile_11.png");
-        tile12 = graphics.loadTexture("include/maps/Tile_12.png");
         tile13 = graphics.loadTexture("include/maps/Tile_13.png");
-        tile15 = graphics.loadTexture("include/maps/Tile_15.png");
         tile16 = graphics.loadTexture("include/maps/Tile_16.png");
         tile18 = graphics.loadTexture("include/maps/Tile_18.png");
         tile19 = graphics.loadTexture("include/maps/Tile_19.png");
         tile20 = graphics.loadTexture("include/maps/Tile_20.png");
         tile21 = graphics.loadTexture("include/maps/Tile_21.png");
         tile22 = graphics.loadTexture("include/maps/Tile_22.png");
-        tile55 = graphics.loadTexture("include/maps/Tile_55.png");
-        tile56 = graphics.loadTexture("include/maps/Tile_56.png");
+        tile27 = graphics.loadTexture("include/maps/Tile_27.png");
+        tile28 = graphics.loadTexture("include/maps/Tile_28.png");
+        tile29 = graphics.loadTexture("include/maps/Tile_29.png");
+        tile37 = graphics.loadTexture("include/maps/Tile_37.png");
+        tile38 = graphics.loadTexture("include/maps/Tile_38.png");
+        tile43 = graphics.loadTexture("include/maps/Tile_43.png");
+        tile44 = graphics.loadTexture("include/maps/Tile_44.png");
+
+        background1 = graphics.loadTexture("include/maps/1.png");
+        background2 = graphics.loadTexture("include/maps/2.png");
+        background3 = graphics.loadTexture("include/maps/3.png");
+        background4 = graphics.loadTexture("include/maps/4.png");
+        background5 = graphics.loadTexture("include/maps/5.png");
 
     }
+
     void loadMap(const char* path, int arr[MAP_HEIGHT][MAP_WIDTH]){
         std::ifstream file(path);
         if (file.is_open()){
@@ -76,6 +96,12 @@ struct Map {
     }
 
     void render(Graphics& graphics, int arr[MAP_HEIGHT][MAP_WIDTH]) {
+        graphics.renderTexture(background1, 0, 0);
+        graphics.renderTexture(background2, 0, 0);
+        graphics.renderTexture(background3, 0, 0);
+        graphics.renderTexture(background4, 0, 0);
+        graphics.renderTexture(background5, 0, 0);
+
         int type;
         for (int row = 0; row < MAP_HEIGHT; row++) {
             for (int col = 0; col < MAP_WIDTH; col++) {
@@ -96,6 +122,9 @@ struct Map {
                         case 4:
                             graphics.renderTexture(tile4, tileX, tileY);
                             break;
+                        case 5:
+                            graphics.renderTexture(tile5, tileX, tileY);
+                            break;
                         case 9:
                             graphics.renderTexture(tile9, tileX, tileY);
                             break;
@@ -105,14 +134,8 @@ struct Map {
                         case 11:
                             graphics.renderTexture(tile11, tileX, tileY);
                             break;
-                        case 12:
-                            graphics.renderTexture(tile12, tileX, tileY);
-                            break;
                         case 13:
                             graphics.renderTexture(tile13, tileX, tileY);
-                            break;
-                        case 15:
-                            graphics.renderTexture(tile15, tileX, tileY);
                             break;
                         case 16:
                             graphics.renderTexture(tile16, tileX, tileY);
@@ -132,11 +155,26 @@ struct Map {
                         case 22:
                             graphics.renderTexture(tile22, tileX, tileY);
                             break;
-                        case 55:
-                            graphics.renderTexture(tile55, tileX, tileY);
+                        case 27:
+                            graphics.renderTexture(tile27, tileX, tileY);
                             break;
-                        case 56:
-                            graphics.renderTexture(tile56, tileX, tileY);
+                        case 28:
+                            graphics.renderTexture(tile28, tileX, tileY);
+                            break;
+                        case 29:
+                            graphics.renderTexture(tile29, tileX, tileY);
+                            break;
+                        case 37:
+                            graphics.renderTexture(tile37, tileX, tileY);
+                            break;
+                        case 38:
+                            graphics.renderTexture(tile38, tileX, tileY);
+                            break;
+                        case 43:
+                            graphics.renderTexture(tile43, tileX, tileY);
+                            break;
+                        case 44:
+                            graphics.renderTexture(tile44, tileX, tileY);
                             break;
                     }
 
@@ -144,9 +182,10 @@ struct Map {
             }
         }
     }
+
     void close(){
-        std::vector<SDL_Texture*> tiles = {tile1, tile2, tile3, tile4, tile9, tile10, tile11, tile12, tile13, tile15, tile16, tile18, tile19, tile20,
-        tile21, tile22, tile55, tile56};
+        std::vector<SDL_Texture*> tiles = {tile1, tile2, tile3, tile4, tile5, tile9, tile10, tile11, tile13, tile16, tile18, tile19, tile20,
+        tile21, tile22, tile27, tile28, tile29, tile37, tile38, tile43, tile44};
         for (SDL_Texture* texture : tiles){
             if (texture != nullptr){
                 SDL_DestroyTexture(texture);
@@ -156,8 +195,5 @@ struct Map {
     }
 };
 
-
-
-
-#endif // MAP_H
+#endif // _MAP__H
 
