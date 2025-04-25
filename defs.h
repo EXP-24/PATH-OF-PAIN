@@ -13,7 +13,8 @@ const int MAP_WIDTH = 200;
 const int MAP_HEIGHT = 32;
 const int STARTX = 100;
 const int STARTY = 700;
-const int ENDX = 190*32;
+const int ENDX = 194*32;
 const int ENDY = 22*32;
-#endif
+
+#endif // _DEFS__H
 
