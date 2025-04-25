@@ -15,7 +15,6 @@ const int FALL_CLIPS[][4]={
 };
 const int FALL_FRAMES = sizeof(FALL_CLIPS)/sizeof(int)/4;
 
-
 const char* IDLE_SPRITE_FILE = "include/texture/idle.png";
 const int IDLE_CLIPS[][4]={
     {0,0,128,128},
@@ -37,4 +36,4 @@ const int JUMP_CLIPS[][4]={
     {256,256,128,128},
 };
 const int JUMP_FRAMES = sizeof(JUMP_CLIPS)/sizeof(int)/4;
-#endif
+#endif // _SPRITES__H
