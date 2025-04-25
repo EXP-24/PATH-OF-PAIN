@@ -8,14 +8,13 @@
 #include "SDL_mixer.h"
 #include "sprites.h"
 #include "graphics.h"
-#include <vector>
-
 
 enum State { IDLE, RUN, JUMP, FALL};
 
 struct Character {
     int velX = 0, velY = 0;
-    SDL_Texture* Endpic;
+    SDL_Texture* endPic;
+    SDL_Texture* endTitle;
     Sprite idleSprite;
     Sprite runSprite;
     Sprite jumpSprite;
@@ -47,7 +46,9 @@ struct Character {
 
         runSound = graphics.loadSound("include/m&s/run.mp3");
         jumpSound = graphics.loadSound("include/m&s/jump.wav");
-        Endpic = graphics.loadTexture("include/texture/Thumb.png");
+
+        endTitle = graphics.loadTexture("include/texture/end title.png");
+        endPic = graphics.loadTexture("include/texture/Dream no more.png");
     }
 
     void handleEvent(Graphics &graphics, SDL_Event& e) {
@@ -84,7 +85,7 @@ struct Character {
     }
 
     void move(Graphics& graphics, int map[MAP_HEIGHT][MAP_WIDTH]) {
-        //Neu game ket thuc
+        //Nếu game kết thúc
         if (End){
             velX=0;
             velY=0;
@@ -96,19 +97,22 @@ struct Character {
         if (x <= -64 || x + PLAYER_WIDTH/2 >= MAP_WIDTH * 32){
             x -= velX;
         }
-
         if (velY < 10) velY += GRAVITY;
 
         int bottomY = y + PLAYER_HEIGHT;
         int centralX = x + PLAYER_WIDTH/2;
         int tileCol = centralX/32;
         int tileRow = bottomY/32;
+
         //Va chạm với tường
-        if (map[tileRow][tileCol] == 18 || map[tileRow][tileCol] == 13 || map[tileRow][tileCol] == 22 || map[tileRow][tileCol] == 10 || map[tileRow][tileCol] == 19){
+        if (map[tileRow][tileCol] == 18 || map[tileRow][tileCol] == 13 || map[tileRow][tileCol] == 22 || map[tileRow][tileCol] == 10
+            || map[tileRow][tileCol] == 19 || map[tileRow][tileCol] == 37 || map[tileRow][tileCol] == 38){
             x-=velX;
         }
+
         //Va chạm với mặt đất
-        if (map[tileRow][tileCol] == 1 || map[tileRow][tileCol] == 2 || map[tileRow][tileCol] == 3 || map[tileRow][tileCol] == 4 || map[tileRow][tileCol] == 9){
+        if (map[tileRow][tileCol] == 1 || map[tileRow][tileCol] == 2 || map[tileRow][tileCol] == 3 || map[tileRow][tileCol] == 4
+            || map[tileRow][tileCol] == 9 || map[tileRow][tileCol] == 37 || map[tileRow][tileCol] == 38){
             y = (tileRow)*32 - PLAYER_HEIGHT;
             velY = 0;
             if (velX == 0) {
@@ -121,19 +125,31 @@ struct Character {
                }
             }
         }
+
+        //Va chạm với trần
+        int topX = x + PLAYER_WIDTH/2;
+        int topY = y + PLAYER_HEIGHT/2;
+        int tilecolTop = topX/32;
+        int tilerowTop = topY/32;
+
+        if (map[tilerowTop][tilecolTop] == 20 || map[tilerowTop][tilecolTop] == 22 || map[tilerowTop][tilecolTop] == 19){
+            y = (tilerowTop)*32;
+            velY = 0;
+        }
+
         else if (velY > 0) {
             state = FALL;
         }
+
         //Rơi khỏi map quay về vị trí ban đầu
         if (y + PLAYER_HEIGHT >= MAP_HEIGHT*32){
             graphics.prepareScene();
             SDL_SetRenderDrawColor(graphics.renderer, 0, 0, 0, 255);
             graphics.presentScene();
-            SDL_Delay(1000);
+            SDL_Delay(500);
             x = STARTX;
             y = STARTY;
         }
-
     }
 
     void update() {
@@ -151,7 +167,6 @@ struct Character {
                 fallSprite.tick();
                 break;
         }
-
     }
 
     void render(Graphics& graphics, int& camX, int& camY) {
@@ -169,12 +184,15 @@ struct Character {
                 graphics.render(x - camX, y - camY, idleSprite, flip);
                 break;
         }
+        //End Game
         if (x >= ENDX && y >= ENDY) {
-            graphics.renderTexture(Endpic,0,0);
+            graphics.renderTexture(endPic,0,0);
+            graphics.renderTexture(endTitle, 0, 0);
             Mix_FreeChunk(jumpSound);
             End=true;
         }
     }
+
     void close(){
         if (idleTexture != nullptr){
             SDL_DestroyTexture(idleTexture);
@@ -192,16 +210,24 @@ struct Character {
             SDL_DestroyTexture(fallTexture);
             fallTexture = nullptr;
         }
-        if (Endpic != nullptr){
-            SDL_DestroyTexture(Endpic);
-            Endpic = nullptr;
+        if (endTitle != nullptr){
+            SDL_DestroyTexture(endTitle);
+            endTitle = nullptr;
         }
-        if (runSound != nullptr) Mix_FreeChunk(runSound);
-        if (jumpSound != nullptr) Mix_FreeChunk(jumpSound);
+        if (endPic != nullptr){
+            SDL_DestroyTexture(endPic);
+            endPic = nullptr;
+        }
+        if (runSound != nullptr){
+            Mix_FreeChunk(runSound);
+            runSound = nullptr;
+        }
+        if (jumpSound != nullptr){
+            Mix_FreeChunk(jumpSound);
+            jumpSound = nullptr;
+        }
     }
 
 };
-
-
 
 #endif // _GAME__H
