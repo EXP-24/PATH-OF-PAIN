@@ -4,7 +4,7 @@
     + Toàn bộ file graphics.h: https://github.com/chauttm/gameProject
 - Nhạc game:
     + Nhạc menu chính: Hollow Knight Original Soundtrack 26 - "Hollow Knight" theme & music by Christopher Larkin.
-    + Nhạc trong game: Hollow Knight Original Soundtrack 23 - "White Palace" theme & music by Christopher Larkin.
+    + Nhạc trong game: Hollow Knight Original Soundtrack 09 - "City of Tears" theme & music by Christopher Larkin.
 - Giới thiệu game:
     Game thuộc thể loại Platformer (VD: Mario,...), được lấy cảm hứng dựa trên tựa game nổi tiếng "Hollow knight" của Team Cherry.
     Mục tiêu của game là có thể đưa nhân vật đi đến cuối của bản đồ.
