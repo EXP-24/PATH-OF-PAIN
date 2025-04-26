@@ -69,7 +69,7 @@ int main(int argc, char* args[]) {
         int map[MAP_HEIGHT][MAP_WIDTH];
         mapGame.loadMap("include/map.txt", map);
 
-        Mix_Music *gMusic = graphics.loadMusic("include/m&s/White Palace.mp3");
+        Mix_Music *gMusic = graphics.loadMusic("include/m&s/City of Tears.mp3");
         graphics.play(gMusic);
 
 
