@@ -18,7 +18,6 @@ struct mainMenu{
     SDL_Texture* leftArrow;
     SDL_Rect playbutton;
     SDL_Rect quitbutton;
-    SDL_Rect right;
     SDL_Rect left;
     ScrollingBackground background;
 
