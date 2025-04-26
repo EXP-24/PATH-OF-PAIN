@@ -24,17 +24,18 @@ int main(int argc, char* args[]) {
         Mix_Music *titleSong = graphics.loadMusic("include/m&s/Title Theme.mp3");
         graphics.play(titleSong);
         Mix_VolumeMusic(100);
+
+        int mouseX, mouseY;
         SDL_Event e;
         bool inMenu = true;
         while (inMenu) {
+            SDL_GetMouseState(&mouseX, &mouseY);
             while (SDL_PollEvent(&e) != 0) {
                 if (e.type == SDL_QUIT ){
                     running = false;
                     inMenu = false;
                 }
                 else if (e.type == SDL_MOUSEBUTTONDOWN) {
-                    int mouseX, mouseY;
-                    SDL_GetMouseState(&mouseX, &mouseY);
                     if (menu.playClicked(mouseX, mouseY)){
                         inMenu = false;
                     }
@@ -44,9 +45,8 @@ int main(int argc, char* args[]) {
                     }
                 }
             }
-
             graphics.prepareScene();
-            menu.render(graphics);
+            menu.render(graphics, mouseX, mouseY);
             graphics.presentScene();
             SDL_Delay(30);
         }
@@ -72,9 +72,11 @@ int main(int argc, char* args[]) {
         Mix_Music *gMusic = graphics.loadMusic("include/m&s/White Palace.mp3");
         graphics.play(gMusic);
 
+
         bool pause = false;
         bool quit = false;
         while (!quit) {
+            SDL_GetMouseState(&mouseX, &mouseY);
             while (SDL_PollEvent(&e) != 0) {
                 if (e.type == SDL_QUIT) {
                     quit = true;
@@ -90,8 +92,6 @@ int main(int argc, char* args[]) {
                 }
 
                 else if (e.type == SDL_MOUSEBUTTONDOWN){
-                    int mouseX, mouseY;
-                    SDL_GetMouseState(&mouseX, &mouseY);
                     if (pMenu.resumeClicked(mouseX, mouseY)){
                         pause = false;
                         player.velX = 0;
@@ -119,7 +119,7 @@ int main(int argc, char* args[]) {
             mapGame.render(graphics, map);
             player.render(graphics, mapGame.camera.x, mapGame.camera.y);
             if (pause){
-                pMenu.render(graphics);
+                pMenu.render(graphics, mouseX, mouseY);
             }
             graphics.presentScene();
             SDL_Delay(30);
