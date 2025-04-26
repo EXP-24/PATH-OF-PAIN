@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1745655011 source:f:\path of pain\path of pain\main.cpp
+1745655244 source:f:\path of pain\path of pain\main.cpp
 	<iostream>
 	<SDL.h>
 	<SDL_image.h>
@@ -20,7 +20,7 @@
 	"defs.h"
 	<vector>
 
-1745589928 f:\path of pain\path of pain\defs.h
+1745655777 f:\path of pain\path of pain\defs.h
 
 1745592143 f:\path of pain\path of pain\sprites.h
 
@@ -51,7 +51,7 @@
 	<SDL.h>
 	<string>
 
-1745655200 f:\path of pain\path of pain\menu.h
+1745656765 f:\path of pain\path of pain\menu.h
 	<SDL_ttf.h>
 	<SDL_image.h>
 	<SDL_mixer.h>
