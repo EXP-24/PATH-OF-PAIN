@@ -14,8 +14,12 @@ struct mainMenu{
     SDL_Texture* title;
     SDL_Texture* playText;
     SDL_Texture* quitText;
+    SDL_Texture* rightArrow;
+    SDL_Texture* leftArrow;
     SDL_Rect playbutton;
     SDL_Rect quitbutton;
+    SDL_Rect right;
+    SDL_Rect left;
     ScrollingBackground background;
 
     void init(Graphics& graphics){
@@ -23,10 +27,14 @@ struct mainMenu{
         title = graphics.loadTexture("include/texture/w-title.png");
         menuPic = graphics.loadTexture("include/texture/menu.png");
         background.setTexture(menuPic);
+        rightArrow = graphics.loadTexture("include/texture/right arrow.png");
+        leftArrow = graphics.loadTexture("include/texture/left arrow.png");
         font = graphics.loadFont("include/PixelPurl.ttf",50);
         color = {240, 240, 240, 255};
         playText = graphics.renderText("PLAY", font, color);
         quitText = graphics.renderText("QUIT", font, color);
+
+        SDL_QueryTexture(leftArrow, NULL, NULL, &left.w, &left.h);
 
         SDL_QueryTexture(playText, NULL, NULL, &playbutton.w, &playbutton.h);
         playbutton.x = 560;
@@ -51,12 +59,20 @@ struct mainMenu{
         return false;
     }
 
-    void render(Graphics& graphics){
+    void render(Graphics& graphics, int &mouseX, int &mouseY){
         background.scroll(1);
         graphics.renderBackground(background);
         graphics.renderTexture(title, 0, 0);
         graphics.renderTexture(playText, playbutton.x, playbutton.y);
         graphics.renderTexture(quitText, quitbutton.x, quitbutton.y);
+        if (playClicked(mouseX, mouseY)){
+            graphics.renderTexture(rightArrow, playbutton.x + playbutton.w, playbutton.y);
+            graphics.renderTexture(leftArrow, playbutton.x - left.w, playbutton.y);
+        }
+        else if (quitClicked(mouseX, mouseY)){
+            graphics.renderTexture(rightArrow, quitbutton.x + quitbutton.w, quitbutton.y);
+            graphics.renderTexture(leftArrow, quitbutton.x - left.w, quitbutton.y);
+        }
     }
 
     void close(){
@@ -76,6 +92,14 @@ struct mainMenu{
             SDL_DestroyTexture(quitText);
             quitText = nullptr;
         }
+        if (leftArrow != nullptr){
+            SDL_DestroyTexture(leftArrow);
+            leftArrow = nullptr;
+        }
+        if (rightArrow != nullptr){
+            SDL_DestroyTexture(rightArrow);
+            rightArrow = nullptr;
+        }
         if (font != nullptr){
             TTF_CloseFont(font);
             font = nullptr;
@@ -92,13 +116,21 @@ struct PauseMenu {
     SDL_Texture* backText;
     SDL_Rect resumeButton;
     SDL_Rect backButton;
+    SDL_Texture* rightArrow;
+    SDL_Texture* leftArrow;
+    SDL_Rect left;
+
     void init(Graphics& graphics){
         font = graphics.loadFont("include/PixelPurl.ttf",50);
         pausePic = graphics.loadTexture("include/texture/pause menu.png");
+        rightArrow = graphics.loadTexture("include/texture/right arrow.png");
+        leftArrow = graphics.loadTexture("include/texture/left arrow.png");
         pauseBackground = {0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
         colorPause = {255, 255, 255, 255};
         resumeText = graphics.renderText("RESUME", font, colorPause);
         backText = graphics.renderText("QUIT TO MENU", font, colorPause);
+
+        SDL_QueryTexture(leftArrow, NULL, NULL, &left.w, &left.h);
 
         SDL_QueryTexture(resumeText, NULL, NULL, &resumeButton.w, &resumeButton.h);
         resumeButton.x = 540;
@@ -118,7 +150,8 @@ struct PauseMenu {
         return (mouseX >= backButton.x && mouseX <= backButton.x + backButton.w
                 && mouseY >= backButton.y && mouseY <= backButton.y + backButton.h);
     }
-    void render(Graphics& graphics){
+
+    void render(Graphics& graphics, int &mouseX, int &mouseY){
         SDL_SetRenderDrawBlendMode(graphics.renderer, SDL_BLENDMODE_BLEND);
         SDL_SetRenderDrawColor(graphics.renderer, 0, 0, 0, 128);
         SDL_RenderFillRect(graphics.renderer, &pauseBackground);
@@ -126,7 +159,16 @@ struct PauseMenu {
         graphics.renderTexture(resumeText, resumeButton.x, resumeButton.y);
         graphics.renderTexture(backText, backButton.x, backButton.y);
 
+        if (resumeClicked(mouseX, mouseY)){
+            graphics.renderTexture(rightArrow, resumeButton.x + resumeButton.w, resumeButton.y);
+            graphics.renderTexture(leftArrow, resumeButton.x - left.w, resumeButton.y);
+        }
+        else if (backClicked(mouseX, mouseY)){
+            graphics.renderTexture(rightArrow, backButton.x + backButton.w, backButton.y);
+            graphics.renderTexture(leftArrow, backButton.x - left.w, backButton.y);
+        }
     }
+
     void close(){
         if (resumeText != nullptr){
             SDL_DestroyTexture(resumeText);
@@ -140,7 +182,18 @@ struct PauseMenu {
             SDL_DestroyTexture(pausePic);
             pausePic = nullptr;
         }
-        TTF_CloseFont(font);
+        if (leftArrow != nullptr){
+            SDL_DestroyTexture(leftArrow);
+            leftArrow = nullptr;
+        }
+        if (rightArrow != nullptr){
+            SDL_DestroyTexture(rightArrow);
+            rightArrow = nullptr;
+        }
+        if (font != nullptr){
+            TTF_CloseFont(font);
+            font = nullptr;
+        }
     }
 };
 #endif // _MENU__H
