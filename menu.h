@@ -20,14 +20,16 @@ struct mainMenu{
     SDL_Rect quitbutton;
     SDL_Rect left;
     ScrollingBackground background;
+    SDL_Texture* mouse;
 
     void init(Graphics& graphics){
-
+        SDL_ShowCursor(SDL_DISABLE);
         title = graphics.loadTexture("include/texture/w-title.png");
         menuPic = graphics.loadTexture("include/texture/menu.png");
         background.setTexture(menuPic);
         rightArrow = graphics.loadTexture("include/texture/right arrow.png");
         leftArrow = graphics.loadTexture("include/texture/left arrow.png");
+        mouse = graphics.loadTexture("include/texture/mouse.png");
         font = graphics.loadFont("include/PixelPurl.ttf",50);
         color = {240, 240, 240, 255};
         playText = graphics.renderText("PLAY", font, color);
@@ -64,6 +66,8 @@ struct mainMenu{
         graphics.renderTexture(title, 0, 0);
         graphics.renderTexture(playText, playbutton.x, playbutton.y);
         graphics.renderTexture(quitText, quitbutton.x, quitbutton.y);
+        graphics.renderTexture(mouse, mouseX, mouseY);
+
         if (playClicked(mouseX, mouseY)){
             graphics.renderTexture(rightArrow, playbutton.x + playbutton.w, playbutton.y);
             graphics.renderTexture(leftArrow, playbutton.x - left.w, playbutton.y);
@@ -99,6 +103,10 @@ struct mainMenu{
             SDL_DestroyTexture(rightArrow);
             rightArrow = nullptr;
         }
+        if (mouse != nullptr){
+            SDL_DestroyTexture(mouse);
+            mouse = nullptr;
+        }
         if (font != nullptr){
             TTF_CloseFont(font);
             font = nullptr;
@@ -118,12 +126,14 @@ struct PauseMenu {
     SDL_Texture* rightArrow;
     SDL_Texture* leftArrow;
     SDL_Rect left;
+    SDL_Texture* mouse;
 
     void init(Graphics& graphics){
         font = graphics.loadFont("include/PixelPurl.ttf",50);
         pausePic = graphics.loadTexture("include/texture/pause menu.png");
         rightArrow = graphics.loadTexture("include/texture/right arrow.png");
         leftArrow = graphics.loadTexture("include/texture/left arrow.png");
+        mouse = graphics.loadTexture("include/texture/mouse.png");
         pauseBackground = {0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
         colorPause = {255, 255, 255, 255};
         resumeText = graphics.renderText("RESUME", font, colorPause);
@@ -157,6 +167,7 @@ struct PauseMenu {
         graphics.renderTexture(pausePic, 0, 0);
         graphics.renderTexture(resumeText, resumeButton.x, resumeButton.y);
         graphics.renderTexture(backText, backButton.x, backButton.y);
+        graphics.renderTexture(mouse, mouseX, mouseY);
 
         if (resumeClicked(mouseX, mouseY)){
             graphics.renderTexture(rightArrow, resumeButton.x + resumeButton.w, resumeButton.y);
@@ -188,6 +199,10 @@ struct PauseMenu {
         if (rightArrow != nullptr){
             SDL_DestroyTexture(rightArrow);
             rightArrow = nullptr;
+        }
+        if (mouse != nullptr){
+            SDL_DestroyTexture(mouse);
+            mouse = nullptr;
         }
         if (font != nullptr){
             TTF_CloseFont(font);
