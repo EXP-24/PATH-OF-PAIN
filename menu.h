@@ -11,6 +11,7 @@ struct mainMenu{
     TTF_Font* font;
     SDL_Color color;
     SDL_Texture* menuPic;
+    SDL_Texture* menuEffect;
     SDL_Texture* title;
     SDL_Texture* playText;
     SDL_Texture* quitText;
@@ -25,8 +26,9 @@ struct mainMenu{
     void init(Graphics& graphics){
         SDL_ShowCursor(SDL_DISABLE);
         title = graphics.loadTexture("include/texture/w-title.png");
+        menuEffect = graphics.loadTexture("include/texture/snow.png");
         menuPic = graphics.loadTexture("include/texture/menu.png");
-        background.setTexture(menuPic);
+        background.setTexture(menuEffect);
         rightArrow = graphics.loadTexture("include/texture/right arrow.png");
         leftArrow = graphics.loadTexture("include/texture/left arrow.png");
         mouse = graphics.loadTexture("include/texture/mouse.png");
@@ -62,6 +64,7 @@ struct mainMenu{
 
     void render(Graphics& graphics, int &mouseX, int &mouseY){
         background.scroll(1);
+        graphics.renderTexture(menuPic,0,0);
         graphics.renderBackground(background);
         graphics.renderTexture(title, 0, 0);
         graphics.renderTexture(playText, playbutton.x, playbutton.y);
