@@ -6,7 +6,9 @@
 #include <SDL_image.h>
 #include "defs.h"
 #include <SDL.h>
+#include <SDL_ttf.h>
 #include <string>
+#include <vector>
 struct Map {
     SDL_Texture* tile1;
     SDL_Texture* tile2;
@@ -35,6 +37,11 @@ struct Map {
     SDL_Texture* background3;
     SDL_Texture* background4;
     SDL_Texture* background5;
+    TTF_Font* guide;
+    SDL_Color color;
+    SDL_Texture* guide1;
+    SDL_Texture* guide2;
+    SDL_Texture* guide3;
     SDL_Rect camera = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
 
     void init(Graphics& graphics){
@@ -67,6 +74,11 @@ struct Map {
         background4 = graphics.loadTexture("include/maps/4.png");
         background5 = graphics.loadTexture("include/maps/5.png");
 
+        guide = graphics.loadFont("include/PixelPurl.ttf",45);
+        color = {240, 240, 240, 255};
+        guide1 = graphics.renderText("Press A and D to walk", guide, color);
+        guide2 = graphics.renderText("Press W to jump", guide, color);
+        guide3 = graphics.renderText("Press ESC to pause game", guide, color);
     }
 
     void loadMap(const char* path, int arr[MAP_HEIGHT][MAP_WIDTH]){
@@ -181,16 +193,23 @@ struct Map {
                 }
             }
         }
+        graphics.renderTexture(guide1, 40 - camera.x, 610 - camera.y);
+        graphics.renderTexture(guide2, 200 - camera.x, 900 - camera.y);
+        graphics.renderTexture(guide3, 120 - camera.x, 950 - camera.y);
     }
 
     void close(){
         std::vector<SDL_Texture*> tiles = {tile1, tile2, tile3, tile4, tile5, tile9, tile10, tile11, tile13, tile16, tile18, tile19, tile20,
-        tile21, tile22, tile27, tile28, tile29, tile37, tile38, tile43, tile44};
+        tile21, tile22, tile27, tile28, tile29, tile37, tile38, tile43, tile44, guide1, guide2, guide3};
         for (SDL_Texture* texture : tiles){
             if (texture != nullptr){
                 SDL_DestroyTexture(texture);
                 texture = nullptr;
             }
+        }
+        if (guide != nullptr){
+            TTF_CloseFont(guide);
+            guide = nullptr;
         }
     }
 };

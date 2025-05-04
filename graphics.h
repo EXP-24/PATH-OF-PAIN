@@ -141,15 +141,6 @@ struct Graphics {
         renderTexture(background.texture, background.scrollingOffset - background.width, 0);
     }
 
-    void quit() {
-        IMG_Quit();
-        Mix_Quit();
-        TTF_Quit();
-        SDL_DestroyRenderer(renderer);
-        SDL_DestroyWindow(window);
-        SDL_Quit();
-    }
-
     //Xử lí nhạc
     Mix_Music *loadMusic(const char* path) {
         Mix_Music *gMusic = Mix_LoadMUS(path);
@@ -209,6 +200,15 @@ struct Graphics {
 
         SDL_FreeSurface( textSurface );
         return texture;
+    }
+
+    void quit() {
+        IMG_Quit();
+        Mix_Quit();
+        TTF_Quit();
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
+        SDL_Quit();
     }
 };
 

@@ -3,6 +3,7 @@
 
 #include <SDL.h>
 #include <SDL_image.h>
+#include <vector>
 #include "map.h"
 #include "defs.h"
 #include "SDL_mixer.h"
@@ -194,29 +195,12 @@ struct Character {
     }
 
     void close(){
-        if (idleTexture != nullptr){
-            SDL_DestroyTexture(idleTexture);
-            idleTexture = nullptr;
-        }
-        if (runTexture != nullptr){
-            SDL_DestroyTexture(runTexture);
-            runTexture = nullptr;
-        }
-        if (jumpTexture != nullptr){
-            SDL_DestroyTexture(jumpTexture);
-            jumpTexture = nullptr;
-        }
-        if (fallTexture != nullptr){
-            SDL_DestroyTexture(fallTexture);
-            fallTexture = nullptr;
-        }
-        if (endTitle != nullptr){
-            SDL_DestroyTexture(endTitle);
-            endTitle = nullptr;
-        }
-        if (endPic != nullptr){
-            SDL_DestroyTexture(endPic);
-            endPic = nullptr;
+        std::vector<SDL_Texture*> textures = {idleTexture, runTexture, fallTexture, jumpTexture, endPic, endTitle};
+        for (SDL_Texture* texture : textures){
+            if (texture != nullptr){
+                SDL_DestroyTexture(texture);
+                texture = nullptr;
+            }
         }
         if (runSound != nullptr){
             Mix_FreeChunk(runSound);

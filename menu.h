@@ -4,6 +4,7 @@
 #include <SDL_ttf.h>
 #include <SDL_image.h>
 #include <SDL_mixer.h>
+#include <vector>
 #include "defs.h"
 #include "graphics.h"
 
@@ -82,34 +83,14 @@ struct mainMenu{
     }
 
     void close(){
-        if (menuPic != nullptr){
-            SDL_DestroyTexture(menuPic);
-            menuPic = nullptr;
+        std::vector<SDL_Texture*> textures = {menuPic, menuEffect, title, playText, quitText, mouse, leftArrow, rightArrow};
+        for (SDL_Texture* texture : textures){
+            if (texture != nullptr){
+                SDL_DestroyTexture(texture);
+                texture = nullptr;
+            }
         }
-        if (title != nullptr){
-            SDL_DestroyTexture(title);
-            title = nullptr;
-        }
-        if (playText != nullptr){
-            SDL_DestroyTexture(playText);
-            playText = nullptr;
-        }
-        if (quitText != nullptr){
-            SDL_DestroyTexture(quitText);
-            quitText = nullptr;
-        }
-        if (leftArrow != nullptr){
-            SDL_DestroyTexture(leftArrow);
-            leftArrow = nullptr;
-        }
-        if (rightArrow != nullptr){
-            SDL_DestroyTexture(rightArrow);
-            rightArrow = nullptr;
-        }
-        if (mouse != nullptr){
-            SDL_DestroyTexture(mouse);
-            mouse = nullptr;
-        }
+
         if (font != nullptr){
             TTF_CloseFont(font);
             font = nullptr;
@@ -183,30 +164,14 @@ struct PauseMenu {
     }
 
     void close(){
-        if (resumeText != nullptr){
-            SDL_DestroyTexture(resumeText);
-            resumeText = nullptr;
+        std::vector<SDL_Texture*> textures = {resumeText, backText, pausePic, mouse, leftArrow, rightArrow};
+        for (SDL_Texture* texture : textures){
+            if (texture != nullptr){
+                SDL_DestroyTexture(texture);
+                texture = nullptr;
+            }
         }
-        if (backText != nullptr){
-            SDL_DestroyTexture(backText);
-            backText = nullptr;
-        }
-        if (pausePic != nullptr){
-            SDL_DestroyTexture(pausePic);
-            pausePic = nullptr;
-        }
-        if (leftArrow != nullptr){
-            SDL_DestroyTexture(leftArrow);
-            leftArrow = nullptr;
-        }
-        if (rightArrow != nullptr){
-            SDL_DestroyTexture(rightArrow);
-            rightArrow = nullptr;
-        }
-        if (mouse != nullptr){
-            SDL_DestroyTexture(mouse);
-            mouse = nullptr;
-        }
+
         if (font != nullptr){
             TTF_CloseFont(font);
             font = nullptr;
