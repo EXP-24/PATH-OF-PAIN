@@ -36,4 +36,5 @@ const int JUMP_CLIPS[][4]={
     {256,256,128,128},
 };
 const int JUMP_FRAMES = sizeof(JUMP_CLIPS)/sizeof(int)/4;
+
 #endif // _SPRITES__H

@@ -13,6 +13,7 @@
 enum State { IDLE, RUN, JUMP, FALL};
 
 struct Character {
+
     int velX = 0, velY = 0;
     SDL_Texture* endPic;
     SDL_Texture* endTitle;

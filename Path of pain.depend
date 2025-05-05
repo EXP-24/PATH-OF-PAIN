@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1746343058 source:f:\path of pain\path of pain\main.cpp
+1746463809 source:f:\path of pain\path of pain\main.cpp
 	<iostream>
 	<SDL.h>
 	<SDL_image.h>
@@ -20,11 +20,11 @@
 	"defs.h"
 	<vector>
 
-1746273801 f:\path of pain\path of pain\defs.h
+1746461017 f:\path of pain\path of pain\defs.h
 
-1746273801 f:\path of pain\path of pain\sprites.h
+1746457793 f:\path of pain\path of pain\sprites.h
 
-1746368246 f:\path of pain\path of pain\game.h
+1746457793 f:\path of pain\path of pain\game.h
 	<SDL.h>
 	<SDL_image.h>
 	<vector>
@@ -44,7 +44,7 @@
 
 1742133155 f:\path of pain\path of pain\src\map\layer.h
 
-1746368261 f:\path of pain\path of pain\map.h
+1746463977 f:\path of pain\path of pain\map.h
 	<fstream>
 	"graphics.h"
 	<SDL_image.h>
@@ -61,4 +61,10 @@
 	<vector>
 	"defs.h"
 	"graphics.h"
+
+1746457656 f:\path of pain\path of pain\enemy.h
+	"graphics.h"
+	"sprites.h"
+	"defs.h"
+	<SDL_image.h>
 

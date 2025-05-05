@@ -66,8 +66,10 @@ int main(int argc, char* args[]) {
         pMenu.init(graphics);
 
         //Load map va nhac nen game
+        int currentMap = 0;
+        int maxMap = 1;
         int map[MAP_HEIGHT][MAP_WIDTH];
-        mapGame.loadMap("include/map.txt", map);
+        mapGame.loadMap("include/map0.txt", map);
 
         Mix_Music *gMusic = graphics.loadMusic("include/m&s/City of Tears.mp3");
         graphics.play(gMusic);
@@ -111,6 +113,19 @@ int main(int argc, char* args[]) {
 
             if (!pause){
                 player.move(graphics, map);
+
+                if (player.x >= ENDX && player.y >= ENDY){
+                    currentMap++;
+                    if (currentMap <= maxMap){
+                        char mapFile[64];
+                        sprintf(mapFile, "include/map%d.txt", currentMap);
+                        mapGame.loadMap(mapFile, map);
+                        mapGame.clearGuides();
+                        player.x = STARTX;
+                        player.y = STARTY;
+                    }
+                }
+
                 player.update();
                 mapGame.updateCamera(player.x, player.y);
             }
