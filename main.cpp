@@ -66,8 +66,7 @@ int main(int argc, char* args[]) {
         pMenu.init(graphics);
 
         //Load map va nhac nen game
-        int currentMap = 0;
-        int maxMap = 1;
+
         int map[MAP_HEIGHT][MAP_WIDTH];
         mapGame.loadMap("include/map0.txt", map);
 
@@ -94,12 +93,12 @@ int main(int argc, char* args[]) {
                 }
 
                 else if (e.type == SDL_MOUSEBUTTONDOWN){
-                    if (pMenu.resumeClicked(mouseX, mouseY)){
+                    if (pMenu.resumeClicked(mouseX, mouseY) && pause){
                         pause = false;
                         player.velX = 0;
                         player.velY = 0;
                     }
-                    else if (pMenu.backClicked(mouseX, mouseY)){
+                    else if (pMenu.backClicked(mouseX, mouseY) && pause){
                         quit = true;
                         inMenu = true;
 
@@ -112,7 +111,7 @@ int main(int argc, char* args[]) {
             }
 
             if (!pause){
-                player.move(graphics, map);
+                player.move(graphics, map, mapGame);
 
                 if (player.x >= ENDX && player.y >= ENDY){
                     currentMap++;
@@ -131,11 +130,13 @@ int main(int argc, char* args[]) {
             }
 
             graphics.prepareScene();
+
             mapGame.render(graphics, map);
             player.render(graphics, mapGame.camera.x, mapGame.camera.y);
             if (pause){
                 pMenu.render(graphics, mouseX, mouseY);
             }
+
             graphics.presentScene();
             SDL_Delay(30);
         }
