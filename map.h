@@ -10,6 +10,16 @@
 #include <string>
 #include <vector>
 struct Map {
+    std::vector<SDL_Rect> sawRects = {
+        {1728, 864, 64, 64},
+        {2144, 864, 64, 64},
+        {3776, 864, 64, 64},
+        {3936, 768, 64, 64},
+        {4512, 768, 64, 64},
+        {4896, 896, 64, 64},
+        {5184, 896, 64, 64},
+        {5888, 800, 64, 64},
+    };
     SDL_Texture* tile1;
     SDL_Texture* tile2;
     SDL_Texture* tile3;
@@ -42,9 +52,11 @@ struct Map {
     SDL_Texture* guide1;
     SDL_Texture* guide2;
     SDL_Texture* guide3;
+    SDL_Texture* saw;
     SDL_Rect camera = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
 
     void init(Graphics& graphics){
+        saw = graphics.loadTexture("include/texture/saw.png");
         tile1 = graphics.loadTexture("include/maps/Tile_01.png");
         tile2 = graphics.loadTexture("include/maps/Tile_02.png");
         tile3 = graphics.loadTexture("include/maps/Tile_03.png");
@@ -107,12 +119,22 @@ struct Map {
         if (camera.y > MAP_HEIGHT * 32 - camera.h) camera.y = MAP_HEIGHT * 32 - camera.h;
     }
 
+    void renderSaw(Graphics& graphics){
+        for(SDL_Rect rect : sawRects){
+            graphics.renderTexture(saw, rect.x - camera.x, rect.y - camera.y);
+        }
+    }
+
     void render(Graphics& graphics, int arr[MAP_HEIGHT][MAP_WIDTH]) {
         graphics.renderTexture(background1, 0, 0);
         graphics.renderTexture(background2, 0, 0);
         graphics.renderTexture(background3, 0, 0);
         graphics.renderTexture(background4, 0, 0);
         graphics.renderTexture(background5, 0, 0);
+
+        if (currentMap != 0){
+            renderSaw(graphics);
+        }
 
         int type;
         for (int row = 0; row < MAP_HEIGHT; row++) {
@@ -215,7 +237,7 @@ struct Map {
 
     void close(){
         std::vector<SDL_Texture*> tiles = {tile1, tile2, tile3, tile4, tile5, tile9, tile10, tile11, tile13, tile16, tile18, tile19, tile20,
-        tile21, tile22, tile27, tile28, tile29, tile37, tile38, tile43, tile44};
+        tile21, tile22, tile27, tile28, tile29, tile37, tile38, tile43, tile44, saw};
         for (SDL_Texture* texture : tiles){
             if (texture != nullptr){
                 SDL_DestroyTexture(texture);
