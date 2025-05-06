@@ -15,6 +15,8 @@ const int STARTX = 100;
 const int STARTY = 700;
 const int ENDX = 194*32;
 const int ENDY = 22*32;
+int currentMap = 0;
+const int maxMap = 1;
 
 #endif // _DEFS__H
 
