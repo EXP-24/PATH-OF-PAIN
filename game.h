@@ -86,7 +86,20 @@ struct Character {
         }
     }
 
-    void move(Graphics& graphics, int map[MAP_HEIGHT][MAP_WIDTH]) {
+    bool isCollision(int X, int Y, Map& m) {
+        if (currentMap != 1){
+            return false;
+        }
+        for (const SDL_Rect& rect : m.sawRects) {
+            if (X >= rect.x && X <= rect.x + rect.w &&
+                Y >= rect.y && Y <= rect.y + rect.h) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    void move(Graphics& graphics, int map[MAP_HEIGHT][MAP_WIDTH], Map& m) {
         //Nếu game kết thúc
         if (End){
             velX=0;
@@ -144,7 +157,7 @@ struct Character {
         }
 
         //Rơi khỏi map quay về vị trí ban đầu
-        if (y + PLAYER_HEIGHT >= MAP_HEIGHT*32){
+        if ((y + PLAYER_HEIGHT >= MAP_HEIGHT*32) || (isCollision(centralX, bottomY, m) || isCollision(topX, topY, m))){
             graphics.prepareScene();
             SDL_SetRenderDrawColor(graphics.renderer, 0, 0, 0, 255);
             graphics.presentScene();
