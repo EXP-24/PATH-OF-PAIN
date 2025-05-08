@@ -31,7 +31,6 @@ struct Character {
     int x = STARTX, y = STARTY;
     bool flip = false;
     bool End = false;
-    bool check;
 
     void init(Graphics& graphics) {
         idleTexture = graphics.loadTexture(IDLE_SPRITE_FILE);
