@@ -237,7 +237,7 @@ struct Map {
 
     void close(){
         std::vector<SDL_Texture*> tiles = {tile1, tile2, tile3, tile4, tile5, tile9, tile10, tile11, tile13, tile16, tile18, tile19, tile20,
-        tile21, tile22, tile27, tile28, tile29, tile37, tile38, tile43, tile44, saw};
+        tile21, tile22, tile27, tile28, tile29, tile37, tile38, tile43, tile44, saw, guide1, guide2, guide3};
         for (SDL_Texture* texture : tiles){
             if (texture != nullptr){
                 SDL_DestroyTexture(texture);
