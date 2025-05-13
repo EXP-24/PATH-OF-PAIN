@@ -99,6 +99,7 @@ int main(int argc, char* args[]) {
                         player.velY = 0;
                     }
                     else if (pMenu.backClicked(mouseX, mouseY) && pause){
+                        currentMap = 0;
                         quit = true;
                         inMenu = true;
 
