@@ -21,3 +21,8 @@
         + Có các animation riêng cho từng trạng thái (chạy, nhảy, rơi,...).
         + Có nhạc nền và hiệu ứng âm thanh của nhân vật.
         + Trò chơi sẽ kết thúc khi nhân vật di chuyển đến cuối map.
+- Demo game:
+    + Sử dụng tai nghe để có thể nghe rõ chunk và music.
+    https://github.com/user-attachments/assets/41a8716e-19fa-42af-9e02-59e103b5c8f1
+
+
